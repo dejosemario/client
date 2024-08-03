@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
 
-export default function AuthForm() {
+export const AuthForm: FC<AuthFormProps> = ({ type }) => {
   const handleSubmit = (values: never) => {
     console.log(values);
   };
@@ -14,11 +14,18 @@ export default function AuthForm() {
       onFinish={handleSubmit}
     >
       <h1 className="text-2xl font-bold text-gray-600">
-        Regsiter your account
+        {type === "register" ? " Register your account" : "Login"}
       </h1>
-      <Form.Item name="name" required label="Name" rules={[{ required: true }]}>
-        <Input placeholder="Name" />
-      </Form.Item>
+      {type === "register" && (
+        <Form.Item
+          name="name"
+          required
+          label="Name"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="Name" />
+        </Form.Item>
+      )}
       <Form.Item
         name="email"
         required
@@ -36,11 +43,20 @@ export default function AuthForm() {
         <Input.Password placeholder="Password" />
       </Form.Item>
       <Button type="primary" htmlType="submit" block>
-        Register
+        {type === "register" ? "Register" : "Login"}
       </Button>
-      <Link to="/login" className="text-center">
-        Already have an account? Login
-        </Link>
+      <Link
+        to={type === "register" ? "/login" : "/register"}
+        className="text-center"
+      >
+        {type === "register"
+          ? " Already have an account? Login"
+          : "Don't have an account? Sign up"}
+      </Link>
     </Form>
   );
+};
+
+interface AuthFormProps {
+  type: "register" | "login";
 }

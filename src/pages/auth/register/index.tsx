@@ -1,6 +1,5 @@
-import React from "react";
 import WelcomeContent from "../../../components/molecules/WelcomeContent";
-import AuthForm from "../../../components/organisms/AuthForm";
+import { AuthForm } from "../../../components/organisms/AuthForm";
 
 export default function RegisterPage() {
   return (
@@ -9,7 +8,7 @@ export default function RegisterPage() {
         <WelcomeContent />
       </div>
       <div className="h-screen flex items-center justify-center">
-        <AuthForm />
+        <AuthForm type= "register"  />
       </div>
     </div>
   );
