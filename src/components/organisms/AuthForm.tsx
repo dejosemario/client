@@ -1,17 +1,66 @@
-import { FC } from "react";
-import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { FC, useState } from "react";
+import { Button, Form, Input, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser, login } from "../../api/apiService";
+// import { handleAuthProps } from "../../../types/index";
+
+interface handleAuthProps {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface AuthFormProps {
+  type: "register" | "login";
+}
 
 export const AuthForm: FC<AuthFormProps> = ({ type }) => {
-  const handleSubmit = (values: never) => {
-    console.log(values);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleAuth = async ({ name, email, password }: handleAuthProps) => {
+    // console.log(name, email, password);
+    if (type === "register") {
+      // Call registerUser function
+      try {
+        setLoading(true);
+        const response = await registerUser(name, email, password);
+        console.log(response);
+        message.success(response.message);
+        navigate("/login");
+      } catch (e: any) {
+        message.error(e.response?.data.message || e.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (type === "login") {
+      // Call registerUser function
+      try {
+        setLoading(true);
+        const response = await login(email, password);
+
+        if (response.success) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          message.success(response.message);
+          navigate("/");
+        }
+        else{
+          message.error(response.message);
+        }
+      } catch (e: any) {
+        message.error(e.response?.data.message || e.message);
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
   return (
     <Form
       className="flex flex-col gap-5 w-[80%] lg:w-96"
       layout="vertical"
-      onFinish={handleSubmit}
+      onFinish={handleAuth}
     >
       <h1 className="text-2xl font-bold text-gray-600">
         {type === "register" ? " Register your account" : "Login"}
@@ -42,7 +91,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
       >
         <Input.Password placeholder="Password" />
       </Form.Item>
-      <Button type="primary" htmlType="submit" block>
+      <Button type="primary" htmlType="submit" block loading={loading}>
         {type === "register" ? "Register" : "Login"}
       </Button>
       <Link
@@ -56,7 +105,3 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
     </Form>
   );
 };
-
-interface AuthFormProps {
-  type: "register" | "login";
-}

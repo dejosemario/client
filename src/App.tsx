@@ -1,4 +1,3 @@
-import { Button, Input } from "antd";
 import ThemeProvider from "./theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/auth/login";
