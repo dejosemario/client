@@ -48,3 +48,16 @@ export const login = async (email: string, password: string) => {
     return {};
   });
 };
+
+export const getCurrentUser = async () => {
+  const url = "/api/user/me";
+  const res = await fetch(url, {
+    method: "GET",
+    headers: backend_headers,
+  });
+
+  return res.json().catch((e) => {
+    console.log(e);
+    return {};
+  });
+};

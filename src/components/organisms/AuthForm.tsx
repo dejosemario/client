@@ -2,13 +2,9 @@ import { FC, useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser, login } from "../../api/apiService";
-// import { handleAuthProps } from "../../../types/index";
+import Cookies from "js-cookie";
+import { handleAuthProps } from "../../types/index";
 
-interface handleAuthProps {
-  name: string;
-  email: string;
-  password: string;
-}
 
 interface AuthFormProps {
   type: "register" | "login";
@@ -25,7 +21,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
         setLoading(true);
         const response = await registerUser(name, email, password);
         console.log(response);
-        message.success(response.message);
+        message.success(response.message);        
         navigate("/login");
       } catch (e: any) {
         message.error(e.response?.data.message || e.message);
@@ -35,14 +31,21 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
     }
 
     if (type === "login") {
-      // Call registerUser function
+      const oneHourInDays = 1 / 24;
       try {
         setLoading(true);
         const response = await login(email, password);
 
         if (response.success) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("user", JSON.stringify(response));
           message.success(response.message);
+          console.log("I am the login respnonse", response);  
+          Cookies.set("myToken", "this is the token value to login", {
+            expires: oneHourInDays, // Expires in 7 days
+            path: '/', // Available on all paths
+            secure: false, // Only sent over HTTPS  
+            sameSite: 'Lax' // Allows cookies to be sent with top-level navigations
+          });
           navigate("/");
         }
         else{
