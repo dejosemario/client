@@ -1,4 +1,4 @@
-const backend_headers = {
+export const backend_headers = {
   // "x-api-key": process.env.REACT_APP_PROFILE_BACKEND_API_KEY,
   Accept: "application/json",
   "Content-Type": "application/json",
@@ -22,7 +22,6 @@ export const registerUser = async (
     headers: backend_headers,
     body: JSON.stringify(payload),
   });
-  console.log("I am the response", res);
   return res.json().catch((e) => {
     console.error(e.message);
     return {};
@@ -61,3 +60,5 @@ export const getCurrentUser = async () => {
     return {};
   });
 };
+
+

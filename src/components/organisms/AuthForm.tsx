@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser, login } from "../../api/apiService";
+import { registerUser, login } from "../../api/usersService";
 import Cookies from "js-cookie";
 import { handleAuthProps } from "../../types/index";
 

@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { FC } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCurrentUser } from "../api/apiService";
+import { getCurrentUser } from "../api/usersService";
 import Sidebar from "./sidebar";
 import usersGlobalStore, { UsersStoreType } from "../store/users.store";
 import { message } from "antd";
@@ -29,13 +29,13 @@ const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const token = Cookies.get("token");
-   
+
     if (!token) {
       console.log("babab don dey navigate");
       navigate("/login");
     } else {
       console.log("you are here!!", token, getData());
-      getData(); 
+      getData();
       setShowContent(true);
     }
   }, []);
