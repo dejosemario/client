@@ -29,3 +29,8 @@ body {
 a:hover{
   color: #222831 !important;
 }
+
+table{
+  margin-top: 20px;
+  border: 1px solid #adadad;
+}

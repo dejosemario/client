@@ -6,7 +6,7 @@ import HomePage from "./pages/private/home";
 import PublicLayout from "./layouts/public.layout";
 import PrivateLayout from "./layouts/private.layout";
 // import CreateEvent from "./pages/creator/event/create/index";
-import EventsPage from "./pages/event/index";
+import EventsPage from "./pages/event";
 import EditEventPage from "./components/molecules/EditEventPage";
 import EventCreate from "./components/molecules/EventCreate";
 function App() {
@@ -53,6 +53,14 @@ function App() {
               <PrivateLayout>
                  <EventCreate />
             </PrivateLayout>
+            }
+          />
+          <Route
+            path="/creator/events/edit/:id"
+            element={
+              <PrivateLayout>
+                <EditEventPage />
+              </PrivateLayout>
             }
           />
           <Route

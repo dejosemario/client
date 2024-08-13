@@ -1,23 +1,57 @@
 import { Button, Table, message } from "antd";
-import { useState } from "react";
-import PageTitle from "../../components/molecules/PageTitle";
+import PageTitle from "../../components/atoms/pageTitle";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { deleteEvent, getEvents } from "../../api/eventService";
+import { getDateFormat, getTimeFormat, getDateTimeFormat } from "../../helpers";
 import { Pen, Trash2 } from "lucide-react";
-import { getDateTimeFormat } from "../../helpers";
 
-
-
-export default function EventsPage() {
-  const navigate = useNavigate();
+function EventsPage() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
+  const getData = async () => {
+    try {
+      setLoading(true);
+      const filters: {
+        searchText?: string;
+        startDate?: Date;
+        endDate?: Date;
+      } = {};
 
+      // Optionally add parameters
+      filters.searchText = "";
+      filters.startDate = new Date();
+      filters.endDate = new Date();
 
+      const response = await getEvents(filters);
+      console.log(response.data);
+      setEvents(response.data);
+    } catch (error) {
+      message.error("Failed to fetch events");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const deleteEventHandler =async (id: string) => {
-    message.success("Event deleted successfully");
-  }
+  const deleteEventHandler = async (id: string) => {
+    try {
+      setLoading(true);
+      await deleteEvent(id);
+      getData();
+      message.success("Event deleted successfully");
+    } catch (error) {
+      message.error("Failed to delete event");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const columns = [
     {
       title: "Event Name",
@@ -25,12 +59,28 @@ export default function EventsPage() {
       key: "name",
     },
     {
-      title: "Date & Time",
-      dataIndex: "date",
-      render: (date: any, row: any) => {
-        return getDateTimeFormat(`${date} ${row.time}`);
+      title: "Start Date",
+      dataIndex: "startDate",
+      render: (startDate: any) => {
+        return getDateFormat(`${startDate}`);
       },
-      key: "date",
+      key: "startDate",
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      render: (endDate: any) => {
+        return getDateFormat(`${endDate}`);
+      },
+      key: "endDate",
+    },
+    {
+      title: "Time",
+      dataIndex: "time",
+      render: (time: any) => {
+        return getTimeFormat(`${time}`);
+      },
+      key: "time",
     },
     {
       title: "Organizer",
@@ -55,21 +105,28 @@ export default function EventsPage() {
           <Pen
             className="cursor-pointer text-yellow-700"
             size={16}
-            onClick={() => navigate(`/admin/events/edit/${record._id}`)}
+            onClick={() => navigate(`/creator/events/edit/${record._id}`)}
           />
         </div>
       ),
     },
-  ]
+  ];
+
   return (
     <div>
-       <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center">
         <PageTitle title="Events" />
-        <Button type="primary" onClick={() => navigate("/creator/events/create")}>
+        <Button
+          type="primary"
+          onClick={() => navigate("/creator/events/create")}
+        >
           Create Event
         </Button>
       </div>
+
       <Table dataSource={events} columns={columns} loading={loading} />
     </div>
   );
 }
+
+export default EventsPage;

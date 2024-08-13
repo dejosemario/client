@@ -31,10 +31,8 @@ const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
     const token = Cookies.get("token");
 
     if (!token) {
-      console.log("babab don dey navigate");
       navigate("/login");
     } else {
-      console.log("you are here!!", token, getData());
       getData();
       setShowContent(true);
     }

@@ -7,18 +7,6 @@ function LocationAndDate({
   setCurrentStep,
   currentStep,
 }: EventFormStepProps) {
-  // const handleFieldChange = (field: string, value: string) => {
-  //   //update the specific field in the event
-  //   const updatedEventData = { ...eventData, [field]: value };
-
-  //   //combine address, city, and state into  a single location
-  //   const location = `${updatedEventData.address || ""}, ${
-  //     updatedEventData.city || ""
-  //   }, ${updatedEventData.state || ""}`.trim();
-
-  //   setEventData({ ...updatedEventData, location });
-  // };
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
       <Form.Item label="Address">
@@ -43,17 +31,19 @@ function LocationAndDate({
         <Input
           placeholder="State"
           value={eventData.state}
-          onChange={(e) => setEventData({ ...eventData, state: e.target.value })}
+          onChange={(e) =>
+            setEventData({ ...eventData, state: e.target.value })
+          }
         />
       </Form.Item>
 
       <Form.Item label="Start Date">
         <Input
           placeholder="Start Date"
-          value={eventData.date}
+          value={eventData.startDate}
           type="date"
           onChange={(e) =>
-            setEventData({ ...eventData, startDate: e.target.value })
+            setEventData({ ...eventData, startDate:e.target.value })
           }
           min={new Date().toISOString().split("T")[0]}
         />
@@ -62,10 +52,10 @@ function LocationAndDate({
       <Form.Item label="End Date (Not Compulsory)">
         <Input
           placeholder="End Date"
-          value={eventData.date}
+          value={eventData.endDate}
           type="date"
           onChange={(e) =>
-            setEventData({ ...eventData, endDate: e.target.value })
+            setEventData({ ...eventData, endDate:e.target.value })
           }
           min={eventData.startDate || new Date().toISOString().split("T")[0]}
         />

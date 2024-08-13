@@ -80,7 +80,7 @@ export default function General({
       <div className="flex gap-10 justify-between">
         <Button
           onClick={() => {
-            navigate("/admin/events");
+            navigate("/creator/events");
           }}
         >
           Back

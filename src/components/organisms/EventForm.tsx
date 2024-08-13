@@ -42,7 +42,7 @@ export default function EventForm({
             })
           );
           eventData.media = [...(eventData?.media || []), ...urls];
-          if (type === "edit") {
+          if (type === "edit") { 
             await updateEvent(params.id, eventData);
             message.success("Event updated successfully");
           } else {
