@@ -37,27 +37,15 @@ function LocationAndDate({
         />
       </Form.Item>
 
-      <Form.Item label="Start Date">
+      <Form.Item label="Date">
         <Input
-          placeholder="Start Date"
-          value={eventData.startDate}
+          placeholder="Date"
+          value={eventData.date}
           type="date"
           onChange={(e) =>
-            setEventData({ ...eventData, startDate:e.target.value })
+            setEventData({ ...eventData, date:e.target.value })
           }
           min={new Date().toISOString().split("T")[0]}
-        />
-      </Form.Item>
-
-      <Form.Item label="End Date (Not Compulsory)">
-        <Input
-          placeholder="End Date"
-          value={eventData.endDate}
-          type="date"
-          onChange={(e) =>
-            setEventData({ ...eventData, endDate:e.target.value })
-          }
-          min={eventData.startDate || new Date().toISOString().split("T")[0]}
         />
       </Form.Item>
 
@@ -79,7 +67,7 @@ function LocationAndDate({
             !eventData.address ||
             !eventData.city ||
             !eventData.state ||
-            !eventData.startDate ||
+            !eventData.date ||
             !eventData.time
           }
         >

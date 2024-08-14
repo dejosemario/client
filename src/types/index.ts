@@ -23,7 +23,7 @@ export interface handleAuthProps {
     guests: string[];
     address: string;
     city: string;
-    pincode: string;
+    state: string;
     date: string;
     time: string;
     media: string[];

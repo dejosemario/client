@@ -4,6 +4,17 @@ export const backend_headers = {
   "Content-Type": "application/json",
 };
 
+export const handleHttpError = async (res:Response) =>{
+  if(!res.ok){
+    const errorResponse = await res.json();
+    console.error(
+      `Error: ${res.status} ${res.statusText}. Response body: ${errorResponse}`
+    );
+    throw new Error(`${errorResponse.message}`);
+  }
+}
+
+
 export const registerUser = async (
   name: string,
   email: string,
@@ -22,7 +33,10 @@ export const registerUser = async (
     headers: backend_headers,
     body: JSON.stringify(payload),
   });
-  return res.json().catch((e) => {
+
+  await handleHttpError(res);
+
+  return await res.json().catch((e) => {
     console.error(e.message);
     return {};
   });
@@ -42,6 +56,9 @@ export const login = async (email: string, password: string) => {
     body: JSON.stringify(payload),
   });
 
+  await handleHttpError(res);
+
+
   return res.json().catch((e) => {
     console.log(e);
     return {};
@@ -54,6 +71,8 @@ export const getCurrentUser = async () => {
     method: "GET",
     headers: backend_headers,
   });
+
+  await handleHttpError(res);
 
   return res.json().catch((e) => {
     console.log(e);

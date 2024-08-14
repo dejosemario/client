@@ -1,4 +1,5 @@
 import { backend_headers } from "./usersService";
+import { handleHttpError } from "./usersService";
 
 export const createEvent = async (event: any) => {
   const url = "/api/events/create";
@@ -8,14 +9,7 @@ export const createEvent = async (event: any) => {
     body: JSON.stringify(event),
   });
 
-  if (!res.ok) {
-    // Read and log the response body for debugging
-    const errorResponse = await res.text(); // or res.json() if the error response is in JSON format
-    console.error(
-      `Error: ${res.status} ${res.statusText}. Response body: ${errorResponse}`
-    );
-    throw new Error(`Error: ${res.status} ${res.statusText}`);
-  }
+ handleHttpError(res);
 
   return res.json().catch((e) => {
     console.error(e.message);
@@ -30,10 +24,8 @@ export const updateEvent = async (id: string, event: any) => {
     headers: backend_headers,
     body: JSON.stringify(event),
   });
-  if (!res.ok) {
-    // Check if the response status is not OK
-    throw new Error(`Error: ${res.status} ${res.statusText}`);
-  }
+ 
+  await handleHttpError(res);
 
   return res.json().catch((e) => {
     console.error(e.message);
@@ -41,22 +33,9 @@ export const updateEvent = async (id: string, event: any) => {
   });
 };
 
-export const getEvents = async (filters: {
-  searchText?: string;
-  startDate?: Date;
-  endDate?: Date;
-}) => {
-  const queryParams = new URLSearchParams();
-  if (filters.searchText) {
-    queryParams.append("searchText", filters.searchText);
-  }
-  if (filters.startDate) {
-    queryParams.append("startDate", filters.startDate.toISOString());
-  }
-  if (filters.endDate) {
-    queryParams.append("endDate", filters.endDate.toISOString());
-  }
-  const url = `/api/events/all?${queryParams.toString()}`;
+export const getEvents = async (filters:any) => {
+  
+  const url = `/api/events/all?searchText=${filters.searchText}&date=${filters.date}`
 
   // Fetch the data
   const res = await fetch(url, {
@@ -64,15 +43,7 @@ export const getEvents = async (filters: {
     headers: backend_headers,
   });
 
-  if (!res.ok) {
-    // Read and log the response body for debugging
-    const errorResponse = await res.text(); // or res.json() if the error response is in JSON format
-    console.error(
-      `Error: ${res.status} ${res.statusText}. Response body: ${errorResponse}`
-    );
-    throw new Error(`Error: ${res.status} ${res.statusText}`);
-  }
-  console.log(res, "I am the repsonse you are looking for");
+ await handleHttpError(res);
 
   return  res.json().catch((e) => {
     console.error(e.message);
@@ -86,10 +57,8 @@ export const getEventById = async (id: string) => {
     method: "GET",
     headers: backend_headers,
   });
-  if (!res.ok) {
-    // Check if the response status is not OK
-    throw new Error(`Error: ${res.status} ${res.statusText}`);
-  }
+
+  await handleHttpError(res);
 
   return await res.json().catch((e) => {
     console.log(e);
@@ -104,10 +73,8 @@ export const deleteEvent = async (id: string) => {
         method: "DELETE",
         headers: backend_headers,
     });
-    if (!res.ok) {
-        // Check if the response status is not OK
-        throw new Error(`Error: ${res.status} ${res.statusText}`);
-    }
+    
+   await handleHttpError(res);
     
     return await res.json().catch((e) => {
         console.error(e.message);

@@ -14,18 +14,8 @@ function EventsPage() {
   const getData = async () => {
     try {
       setLoading(true);
-      const filters: {
-        searchText?: string;
-        startDate?: Date;
-        endDate?: Date;
-      } = {};
 
-      // Optionally add parameters
-      filters.searchText = "";
-      filters.startDate = new Date();
-      filters.endDate = new Date();
-
-      const response = await getEvents(filters);
+      const response = await getEvents({ searchText: "", date: " " });
       console.log(response.data);
       setEvents(response.data);
     } catch (error) {
@@ -59,20 +49,12 @@ function EventsPage() {
       key: "name",
     },
     {
-      title: "Start Date",
-      dataIndex: "startDate",
-      render: (startDate: any) => {
-        return getDateFormat(`${startDate}`);
+      title: "Date",
+      dataIndex: "date",
+      render: (date: any) => {
+        return getDateFormat(`${date}`);
       },
-      key: "startDate",
-    },
-    {
-      title: "End Date",
-      dataIndex: "endDate",
-      render: (endDate: any) => {
-        return getDateFormat(`${endDate}`);
-      },
-      key: "endDate",
+      key: "date",
     },
     {
       title: "Time",

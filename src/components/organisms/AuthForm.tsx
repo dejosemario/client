@@ -20,11 +20,11 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
       try {
         setLoading(true);
         const response = await registerUser(name, email, password);
-        console.log(response);
+        console.log(response.data);
         message.success(response.message);        
         navigate("/login");
       } catch (e: any) {
-        message.error(e.response?.data.message || e.message);
+        message.error(e.message || "An unexcepted error occured");
       } finally {
         setLoading(false);
       }
