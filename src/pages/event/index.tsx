@@ -3,7 +3,7 @@ import PageTitle from "../../components/atoms/pageTitle";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { deleteEvent, getEvents } from "../../api/eventService";
-import { getDateFormat, getTimeFormat, getDateTimeFormat } from "../../helpers";
+import { getDateTimeFormat } from "../../helpers";
 import { Pen, Trash2 } from "lucide-react";
 
 function EventsPage() {

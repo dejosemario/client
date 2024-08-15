@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { message } from "antd";
 import usersGlobalStore, { UsersStoreType } from "../../store/users.store";
 
@@ -19,7 +18,7 @@ function MenuItems() {
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-  const { currentUser, setCurrentUser }: UsersStoreType = usersGlobalStore() as UsersStoreType;
+  const { currentUser }: UsersStoreType = usersGlobalStore() as UsersStoreType;
 
   const userMenu = [
     {
