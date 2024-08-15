@@ -1,42 +1,37 @@
-import Cookies from "js-cookie";
 import { FC } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCurrentUser } from "../api/usersService";
 import Sidebar from "./sidebar";
-import usersGlobalStore, { UsersStoreType } from "../store/users.store";
-import { message } from "antd";
 import Spinner from "../components/atoms/spinner";
+import usersGlobalStore, { UsersStoreType } from "../store/users.store";
+import { getCurrentUser } from "../api/usersService";
 
 const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { setCurrentUser, currentUser }: UsersStoreType =
-    usersGlobalStore() as UsersStoreType;
-
-  const getData = async () => {
-    try {
-      setLoading(true);
-      const response = await getCurrentUser();
-      setCurrentUser(response.data);
-    } catch (e: any) {
-      message.error(e.response.data.message || e.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { currentUser, setCurrentUser } = usersGlobalStore() as UsersStoreType;
 
   useEffect(() => {
-    const token = Cookies.get("token");
-
-    if (!token) {
-      navigate("/login");
-    } else {
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const response = await getCurrentUser();
+        setCurrentUser(response.data);
+      } catch (error) {
+        console.log(error);
+        navigate("/login");
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (!currentUser) {
       getData();
+    } else {
       setShowContent(true);
+      setLoading(false);
     }
-  }, []);
+  }, [currentUser, navigate, setCurrentUser]);
 
   if (loading) {
     return (

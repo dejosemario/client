@@ -15,7 +15,7 @@ function EventsPage() {
     try {
       setLoading(true);
 
-      const response = await getEvents({ searchText: "", date: " " });
+      const response = await getEvents({ searchText: "", date: "" });
       console.log(response.data);
       setEvents(response.data);
     } catch (error) {
@@ -49,21 +49,21 @@ function EventsPage() {
       key: "name",
     },
     {
-      title: "Date",
+      title: "Date & Time",
       dataIndex: "date",
-      render: (date: any) => {
-        return getDateFormat(`${date}`);
+      render: (date: any,  row: any) => {
+        return getDateTimeFormat(`${date} ${row.time}`);
       },
       key: "date",
     },
-    {
-      title: "Time",
-      dataIndex: "time",
-      render: (time: any) => {
-        return getTimeFormat(`${time}`);
-      },
-      key: "time",
-    },
+    // {
+    //   title: "Time",
+    //   dataIndex: "time",
+    //   render: (time: any) => {
+    //     return getTimeFormat(`${time}`);
+    //   },
+    //   key: "time",
+    // },
     {
       title: "Organizer",
       dataIndex: "organizer",

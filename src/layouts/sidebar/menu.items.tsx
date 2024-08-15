@@ -19,7 +19,7 @@ function MenuItems() {
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-  const { currentUser }: UsersStoreType = usersGlobalStore() as UsersStoreType;
+  const { currentUser, setCurrentUser }: UsersStoreType = usersGlobalStore() as UsersStoreType;
 
   const userMenu = [
     {
@@ -93,7 +93,9 @@ function MenuItems() {
   const menuToRender = currentUser?.role === "eventee" ? userMenu : creatorMenu;
 
   const onLogout = () => {
-    Cookies.remove("myToken");
+    // Cookies.remove("token", { path: '/' });
+    // setCurrentUser(null); 
+    localStorage.removeItem("user");
     navigate("/login");
     message.success("Logged out successfully");
   };
