@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import { MapPin, Timer } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { Image, message } from "antd";
@@ -7,12 +6,9 @@ import Spinner  from "../atoms/spinner";
 import { getEventById } from "../../api/eventService";
 import { EventType } from "../../types";
 import { getDateFormat, getDateTimeFormat } from "../../helpers";
+import TicketsSelection from "../molecules/TicketsSelection";
 
-
-
-
-
-export default function EventsPage() {
+export default function EventsInfoPage() {
   // const navigate = useNavigate();
   const [eventData, setEventData] = useState<EventType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -63,7 +59,7 @@ export default function EventsPage() {
             <div className="flex gap-1 text-gray-500 items-center">
               <MapPin size={12} />
               <span className="text-gray-500 text-xs">
-                {eventData?.address} {eventData?.city} {eventData?.pincode}
+                {eventData?.address} {eventData?.city} {eventData?.state}
               </span>
             </div>
 
@@ -95,7 +91,7 @@ export default function EventsPage() {
           {renderEventProperty("Organizer", eventData?.organizer)}
           {renderEventProperty("Address", eventData?.address)}
           {renderEventProperty("City", eventData?.city)}
-          {renderEventProperty("Pincode", eventData?.pincode)}
+          {renderEventProperty("Pincode", eventData?.state)}
           {renderEventProperty("Date", getDateFormat(eventData.date))}
           {renderEventProperty("Time", eventData.time)}
           <div className="col-span-3">
@@ -104,7 +100,7 @@ export default function EventsPage() {
         </div>
 
         <div className="mt-7">
-          {/* <TicketsSelection eventData={eventData} /> */}
+          <TicketsSelection eventData={eventData} />
         </div>
       </div>
     )

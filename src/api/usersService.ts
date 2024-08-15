@@ -54,6 +54,7 @@ export const login = async (email: string, password: string) => {
     method: "POST",
     headers: backend_headers,
     body: JSON.stringify(payload),
+    credentials: "same-origin",
   });
 
   await handleHttpError(res);

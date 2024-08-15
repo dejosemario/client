@@ -2,8 +2,8 @@ import { FC, useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser, login } from "../../api/usersService";
-import Cookies from "js-cookie";
 import { handleAuthProps } from "../../types/index";
+import usersGlobalStore, { UsersStoreType } from "../../store/users.store";
 
 
 interface AuthFormProps {
@@ -13,6 +13,9 @@ interface AuthFormProps {
 export const AuthForm: FC<AuthFormProps> = ({ type }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setCurrentUser }: UsersStoreType =
+    usersGlobalStore() as UsersStoreType;
+
   const handleAuth = async ({ name, email, password }: handleAuthProps) => {
     // console.log(name, email, password);
     if (type === "register") {
@@ -21,7 +24,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
         setLoading(true);
         const response = await registerUser(name, email, password);
         console.log(response.data);
-        message.success(response.message);        
+        message.success(response.message);
         navigate("/login");
       } catch (e: any) {
         message.error(e.message || "An unexcepted error occured");
@@ -31,24 +34,16 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
     }
 
     if (type === "login") {
-      const oneHourInDays = 1 / 24;
       try {
         setLoading(true);
         const response = await login(email, password);
-
+        
         if (response.success) {
           localStorage.setItem("user", JSON.stringify(response));
+          setCurrentUser(response.data);
           message.success(response.message);
-          console.log("I am the login respnonse", response);  
-          Cookies.set("myToken", "this is the token value to login", {
-            expires: oneHourInDays, // Expires in 7 days
-            path: '/', // Available on all paths
-            secure: false, // Only sent over HTTPS  
-            sameSite: 'Lax' // Allows cookies to be sent with top-level navigations
-          });
           navigate("/");
-        }
-        else{
+        } else {
           message.error(response.message);
         }
       } catch (e: any) {
