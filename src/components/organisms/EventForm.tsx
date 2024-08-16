@@ -47,7 +47,6 @@ export default function EventForm({
             message.success("Event updated successfully");
           } else {
             await createEvent(eventData);
-            console.log('Event Data before validation:', eventData); 
             message.success("Event created successfully");
           }
     

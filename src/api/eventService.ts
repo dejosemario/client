@@ -51,6 +51,22 @@ export const getEvents = async (filters:any) => {
   });
 };
 
+
+export const getEventsByCreator = async () => {
+  const url = "/api/events/creator";
+  const res = await fetch(url, {
+    method: "GET",
+    headers: backend_headers,
+  });
+
+  await handleHttpError(res);
+
+  return res.json().catch((e) => {
+    console.error(e.message);
+    return [];
+  });
+}
+
 export const getEventById = async (id: string) => {
   const url = `/api/events/${id}`;
   const res = await fetch(url, {

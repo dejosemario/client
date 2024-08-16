@@ -17,13 +17,11 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
     usersGlobalStore() as UsersStoreType;
 
   const handleAuth = async ({ name, email, password }: handleAuthProps) => {
-    // console.log(name, email, password);
     if (type === "register") {
       // Call registerUser function
       try {
         setLoading(true);
         const response = await registerUser(name, email, password);
-        console.log(response.data);
         message.success(response.message);
         navigate("/login");
       } catch (e: any) {
@@ -39,7 +37,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
         const response = await login(email, password);
         
         if (response.success) {
-          localStorage.setItem("user", JSON.stringify(response));
+          localStorage.setItem("user", JSON.stringify(response.data));
           setCurrentUser(response.data);
           message.success(response.message);
           navigate("/");

@@ -18,7 +18,7 @@ function MenuItems() {
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-  const { currentUser }: UsersStoreType = usersGlobalStore() as UsersStoreType;
+  const { currentUser, setCurrentUser }: UsersStoreType = usersGlobalStore() as UsersStoreType;
 
   const userMenu = [
     {
@@ -51,6 +51,7 @@ function MenuItems() {
       icon: <LogOut size={iconSize} />,
     },
   ];
+
   const creatorMenu = [
     {
       name: "Home",
@@ -71,10 +72,10 @@ function MenuItems() {
       isActive: currentPath.includes("/creator/bookings"),
     },
     {
-      name: "Users",
-      path: "/creator/users",
+      name: "Attendees",
+      path: "/creator/attendees",
       icon: <UsersRound size={iconSize} />,
-      isActive: currentPath.includes("/creator/users"),
+      isActive: currentPath.includes("/creator/attendees"),
     },
     {
       name: "Reports",
@@ -92,8 +93,7 @@ function MenuItems() {
   const menuToRender = currentUser?.role === "eventee" ? userMenu : creatorMenu;
 
   const onLogout = () => {
-    // Cookies.remove("token", { path: '/' });
-    // setCurrentUser(null); 
+    setCurrentUser(null); 
     localStorage.removeItem("user");
     navigate("/login");
     message.success("Logged out successfully");

@@ -2,7 +2,7 @@ import { Button, Table, message } from "antd";
 import PageTitle from "../../components/atoms/pageTitle";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { deleteEvent, getEvents } from "../../api/eventService";
+import { deleteEvent, getEventsByCreator } from "../../api/eventService";
 import { getDateTimeFormat } from "../../helpers";
 import { Pen, Trash2 } from "lucide-react";
 
@@ -14,8 +14,7 @@ function EventsPage() {
   const getData = async () => {
     try {
       setLoading(true);
-
-      const response = await getEvents({ searchText: "", date: "" });
+      const response = await getEventsByCreator();
       console.log(response.data);
       setEvents(response.data);
     } catch (error) {
@@ -56,14 +55,7 @@ function EventsPage() {
       },
       key: "date",
     },
-    // {
-    //   title: "Time",
-    //   dataIndex: "time",
-    //   render: (time: any) => {
-    //     return getTimeFormat(`${time}`);
-    //   },
-    //   key: "time",
-    // },
+
     {
       title: "Organizer",
       dataIndex: "organizer",

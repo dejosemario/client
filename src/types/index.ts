@@ -38,6 +38,7 @@ export interface handleAuthProps {
   
   export interface BookingType {
     _id: string;
+    id?: string;
     user: UserType;
     event: EventType;
     ticketType: string;

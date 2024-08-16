@@ -19,6 +19,5 @@ export const getDateTimeFormat = (date: string, time: string | null = null) => {
   }
 
 export const getTimeFormat = (time: string) => {
-    console.log("Formatting time:", time); // Add this for debugging
     return dayjs(time).format("hh:mm A");
 }

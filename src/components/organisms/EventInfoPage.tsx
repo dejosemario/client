@@ -10,7 +10,7 @@ import TicketsSelection from "../molecules/TicketsSelection";
 
 export default function EventsInfoPage() {
   // const navigate = useNavigate();
-  const [eventData, setEventData] = useState<EventType | null>(null);
+  const [eventHandlerData, setEventHandlerData] = useState<EventType | null>(null);
   const [loading, setLoading] = useState(true);
   const params: any = useParams();
 
@@ -19,7 +19,7 @@ export default function EventsInfoPage() {
     try {
       setLoading(true);
       const response = await getEventById(params.id);
-      setEventData(response.data);
+      setEventHandlerData(response.data);
     } catch (error) {
       message.error("Failed to fetch event");
     } finally {
@@ -51,29 +51,29 @@ export default function EventsInfoPage() {
   }
 
   return  (
-    eventData && (
+    eventHandlerData && (
       <div>
         <div className="flex flex-col gap-1">
-          <h1 className="text-xl font-bold text-gray-600">{eventData?.name}</h1>
+          <h1 className="text-xl font-bold text-gray-600">{eventHandlerData?.name}</h1>
           <div className="flex gap-10">
             <div className="flex gap-1 text-gray-500 items-center">
               <MapPin size={12} />
               <span className="text-gray-500 text-xs">
-                {eventData?.address} {eventData?.city} {eventData?.state}
+                {eventHandlerData?.address} {eventHandlerData?.city} {eventHandlerData?.state}
               </span>
             </div>
 
             <div className="flex gap-1 text-gray-500 items-center">
               <Timer size={16} />
               <span className="text-gray-500 text-xs">
-                {getDateTimeFormat(`${eventData?.date} ${eventData?.time}`)}
+                {getDateTimeFormat(`${eventHandlerData?.date} ${eventHandlerData?.time}`)}
               </span>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-3 mt-7">
-          {eventData?.media.map((media, index) => (
+          {eventHandlerData?.media.map((media, index) => (
             <Image
               src={media}
               height={220}
@@ -84,23 +84,23 @@ export default function EventsInfoPage() {
         </div>
 
         <div className="mt-7">
-          <p className="text-gray-600 text-sm">{eventData?.description}</p>
+          <p className="text-gray-600 text-sm">{eventHandlerData?.description}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-3 bg-gray-100 mt-7 gap-5">
-          {renderEventProperty("Organizer", eventData?.organizer)}
-          {renderEventProperty("Address", eventData?.address)}
-          {renderEventProperty("City", eventData?.city)}
-          {renderEventProperty("Pincode", eventData?.state)}
-          {renderEventProperty("Date", getDateFormat(eventData.date))}
-          {renderEventProperty("Time", eventData.time)}
+          {renderEventProperty("Organizer", eventHandlerData?.organizer)}
+          {renderEventProperty("Address", eventHandlerData?.address)}
+          {renderEventProperty("City", eventHandlerData?.city)}
+          {renderEventProperty("Pincode", eventHandlerData?.state)}
+          {renderEventProperty("Date", getDateFormat(eventHandlerData.date))}
+          {renderEventProperty("Time", eventHandlerData.time)}
           <div className="col-span-3">
-            {renderEventProperty("Guests", eventData.guests.join(", "))}
+            {renderEventProperty("Guests", eventHandlerData.guests.join(", "))}
           </div>
         </div>
 
         <div className="mt-7">
-          <TicketsSelection eventData={eventData} />
+          <TicketsSelection eventData={eventHandlerData} />
         </div>
       </div>
     )

@@ -62,6 +62,7 @@ function PaymentModal({
         };
         await createBooking(bookingPayload);
         message.success("Booking successful");
+        
         navigate("/profile/bookings");
         setShowPaymentModal(false);
       }

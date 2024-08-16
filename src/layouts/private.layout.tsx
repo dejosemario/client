@@ -1,37 +1,30 @@
-import { FC } from "react";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./sidebar";
 import Spinner from "../components/atoms/spinner";
-import usersGlobalStore, { UsersStoreType } from "../store/users.store";
-import { getCurrentUser } from "../api/usersService";
 
 const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
-  const [showContent, setShowContent] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { currentUser, setCurrentUser } = usersGlobalStore() as UsersStoreType;
+  const [authenticated, setAuthenticated] = useState(false);
+
+  // Check if the user is authenticated by localStorage
+  const isAuthenticated = () => {
+    return !!localStorage.getItem("user");
+  };
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        setLoading(true);
-        const response = await getCurrentUser();
-        setCurrentUser(response.data);
-      } catch (error) {
-        console.log(error);
+    const checkAuth = () => {
+      if (isAuthenticated()) {
+        setAuthenticated(true);
+      } else {
         navigate("/login");
-      } finally {
-        setLoading(false);
       }
+      setLoading(false); 
     };
-    if (!currentUser) {
-      getData();
-    } else {
-      setShowContent(true);
-      setLoading(false);
-    }
-  }, [currentUser, navigate, setCurrentUser]);
+
+    checkAuth();
+  }, [navigate]);
 
   if (loading) {
     return (
@@ -42,8 +35,7 @@ const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
   }
 
   return (
-    showContent &&
-    currentUser && (
+    authenticated && (
       <div className="flex lg:flex-row flex-col gap-5 h-screen">
         <Sidebar />
         <div className="flex-1 px-5 lg:mt-10 pb-10 overflow-y-scroll">

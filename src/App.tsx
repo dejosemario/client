@@ -10,6 +10,8 @@ import EventsPage from "./pages/event";
 import EditEventPage from "./components/molecules/EditEventPage";
 import EventCreate from "./components/molecules/EventCreate";
 import EventInfoPage from "./components/organisms/EventInfoPage";
+import UserBookingsPage from "./components/organisms/UserBookingsPage";
+import CreatorBookingsPage from "./components/organisms/CreatorBookingsPage";
 function App() {
   return (
     <ThemeProvider>
@@ -76,7 +78,15 @@ function App() {
             path="/creator/bookings"
             element={
               <PrivateLayout>
-                <EditEventPage />
+                <CreatorBookingsPage />
+              </PrivateLayout>
+            }
+          />
+          <Route
+            path="/profile/bookings"
+            element={
+              <PrivateLayout>
+                <UserBookingsPage />
               </PrivateLayout>
             }
           />
