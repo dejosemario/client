@@ -9,7 +9,7 @@ export default defineConfig({
     port: 5173, // Ensure this is the port Vite is using
     proxy: {
       "/api": {
-        target: (import.meta as any).env.VITE_BACKEND_URL, // Ensure you define this in your .env file
+        target: process.env.VITE_BACKEND_URL || "http://localhost:8000/api/v1",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
