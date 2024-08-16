@@ -9,7 +9,7 @@ export default defineConfig({
     port: 5173,     // Ensure this is the port Vite is using
     proxy: {
       '/api': {
-        target: 'http://localhost:8000/api/v1',
+        target: 'https://server-z0w0.onrender.com/api/v1',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
