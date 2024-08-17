@@ -17,9 +17,6 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const {currentUser } = usersGlobalStore() as UsersStoreType;
   
-
-  console.log(currentUser, " I am the user")
-
   const getData = async (filtersObj: any) => {
     try {
       setLoading(true);

@@ -1,12 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser, login } from "../../api/usersService";
 import { handleAuthProps } from "../../types/index";
-import usersGlobalStore, { UsersStoreType } from "../../store/users.store";
-import { getCurrentUser } from "../../api/usersService";
-
-
 
 interface AuthFormProps {
   type: "register" | "login";
@@ -15,8 +11,6 @@ interface AuthFormProps {
 export const AuthForm: FC<AuthFormProps> = ({ type }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { setCurrentUser }: UsersStoreType =
-    usersGlobalStore() as UsersStoreType;
 
   const handleAuth = async ({ name, email, password }: handleAuthProps) => {
     if (type === "register") {
@@ -37,10 +31,9 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
       try {
         setLoading(true);
         const response = await login(email, password);
-        
+
         if (response.success) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          setCurrentUser(response.data);
           message.success(response.message);
           navigate("/");
           setLoading(false);
@@ -54,25 +47,6 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
       }
     }
   };
-  
-  useEffect(() => {
-    
-  const getUserData = async ()=>{
-    try {
-      setLoading(true);
-      const response = await getCurrentUser();
-      setCurrentUser(response.data);
-    } catch (error) {
-      message.error("Failed to fetch data");
-    } finally {
-      setLoading(false);
-    }
-  }
-      
-      getUserData();
-    }, [setCurrentUser]);
-
-
 
   return (
     <Form
