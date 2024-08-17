@@ -31,13 +31,13 @@ function CreatorBookingsPage() {
       title: "Event",
       dataIndex: "event",
       key: "event",
-      render: (event: string) => event.name,
+      render: (event: any) => event.name,
     },
     {
       title: "User",
       dataIndex: "user",
       key: "user",
-      render: (event: string) => event.name,
+      render: (event: any) => event.name,
     },
     {
       title: "Event Date & Time",

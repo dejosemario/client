@@ -47,3 +47,5 @@ const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
 };
 
 export default PrivateLayout;
+
+

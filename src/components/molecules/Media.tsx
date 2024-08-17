@@ -1,5 +1,5 @@
 import { Upload, Button } from "antd";
-import { EventFormStepProps } from "../organisms/EventForm";
+import { EventFormStepProps } from "./EventForm";
 
 export default function Media({
   setCurrentStep,

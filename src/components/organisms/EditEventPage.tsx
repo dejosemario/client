@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Spinner from "../atoms/spinner";
 import {message } from "antd";
-import PageTitle from "./PageTitle";
-import EventForm from "../../components/organisms/EventForm";
+import PageTitle from "../molecules/PageTitle";
+import EventForm from "../molecules/EventForm";
 import { getEventById } from "../../api/eventService";
 
 

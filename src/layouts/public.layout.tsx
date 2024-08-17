@@ -9,16 +9,20 @@ const PublicLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
 
   // Check if the user is authenticated by localStorage
   const isAuthenticated = () => {
-    return !!localStorage.getItem("user");
+    const user = localStorage.getItem("user");
+    if (!user || user === "undefined") {
+      setShowContent(true);
+    }
+    return !!user;
   };
 
   useEffect(() => {
     const checkAuth = () => {
       if (isAuthenticated()) {
         navigate("/");
-        setShowContent(false) // Redirect to private route if user is authenticated
       } else {
         setShowContent(true); // Show public content if user is not authenticated
+
       }
       setLoading(false); // Set loading to false after checking authentication
     };

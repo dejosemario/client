@@ -41,6 +41,7 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
           setCurrentUser(response.data);
           message.success(response.message);
           navigate("/");
+          setLoading(false);
         } else {
           message.error(response.message);
         }
@@ -51,6 +52,8 @@ export const AuthForm: FC<AuthFormProps> = ({ type }) => {
       }
     }
   };
+
+  
 
   return (
     <Form

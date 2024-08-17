@@ -6,6 +6,7 @@ import { getEvents } from "../../../api/eventService";
 import { EventType } from "../../../types";
 import EventCard from "../../../components/organisms/EventCard";
 import Filters from "../../../components/molecules/Filters";
+import { getCurrentUser } from "../../../api/usersService";
 
 export default function HomePage() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -15,7 +16,21 @@ export default function HomePage() {
   });
 
   const [loading, setLoading] = useState(false);
-  const { currentUser } = usersGlobalStore() as UsersStoreType;
+  const {currentUser, setCurrentUser } = usersGlobalStore() as UsersStoreType;
+  
+  const getUserData = async ()=>{
+    try {
+      setLoading(true);
+      const response = await getCurrentUser();
+      setCurrentUser(response.data);
+    } catch (error) {
+      message.error("Failed to fetch data");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  console.log(currentUser, " I am the user")
 
   const getData = async (filtersObj: any) => {
     try {
@@ -31,6 +46,7 @@ export default function HomePage() {
 
   useEffect(() => {
     getData({ searchText: "", date: "" });
+    getUserData();
   }, []);
 
   if (loading) {

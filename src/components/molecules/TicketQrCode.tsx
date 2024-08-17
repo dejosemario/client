@@ -1,5 +1,5 @@
 import { Button, Input } from "antd";
-import { EventFormStepProps } from "../organisms/EventForm";
+import { EventFormStepProps } from "./EventForm";
 
 function Tickets({
   currentStep,

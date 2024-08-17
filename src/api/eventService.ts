@@ -1,99 +1,73 @@
-import { backend_headers } from "./usersService";
+import { api } from "./index";
 import { handleHttpError } from "./usersService";
 
+
 export const createEvent = async (event: any) => {
-  const url = "/api/events/create";
-  const res = await fetch(url, {
-    method: "POST",
-    headers: backend_headers,
-    body: JSON.stringify(event),
-  });
+  const url = '/events/create'; // Adjusted the URL
 
- handleHttpError(res);
-
-  return res.json().catch((e) => {
-    console.error(e.message);
-    return {};
-  });
+  try {
+    const response = await api.post(url, event);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+  }
 };
 
 export const updateEvent = async (id: string, event: any) => {
-  const url = `/api/events/update/${id}`;
-  const res = await fetch(url, {
-    method: "PUT",
-    headers: backend_headers,
-    body: JSON.stringify(event),
-  });
- 
-  await handleHttpError(res);
+  const url = `/events/update/${id}`; // Adjusted the URL
 
-  return res.json().catch((e) => {
-    console.error(e.message);
-    return {};
-  });
+  try {
+    const response = await api.put(url, event);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+  }
 };
 
-export const getEvents = async (filters:any) => {
-  
-  const url = `/api/events/all?searchText=${filters.searchText}&date=${filters.date}`
+export const getEvents = async (filters: any) => {
+  const url = `/events/all?searchText=${filters.searchText}&date=${filters.date}`; // Adjusted the URL
 
-  // Fetch the data
-  const res = await fetch(url, {
-    method: "GET",
-    headers: backend_headers,
-  });
-
- await handleHttpError(res);
-
-  return  res.json().catch((e) => {
-    console.error(e.message);
-    return [];
-  });
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+    return []; // Return an empty array in case of error
+  }
 };
-
 
 export const getEventsByCreator = async () => {
-  const url = "/api/events/creator";
-  const res = await fetch(url, {
-    method: "GET",
-    headers: backend_headers,
-  });
+  const url = '/events/creator'; // Adjusted the URL
 
-  await handleHttpError(res);
-
-  return res.json().catch((e) => {
-    console.error(e.message);
-    return [];
-  });
-}
-
-export const getEventById = async (id: string) => {
-  const url = `/api/events/${id}`;
-  const res = await fetch(url, {
-    method: "GET",
-    headers: backend_headers,
-  });
-
-  await handleHttpError(res);
-
-  return await res.json().catch((e) => {
-    console.log(e);
-    return {};
-  });
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+    return []; // Return an empty array in case of error
+  }
 };
 
+export const getEventById = async (id: string) => {
+  const url = `/events/${id}`; // Adjusted the URL
+
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+    return {}; // Return an empty object in case of error
+  }
+};
 
 export const deleteEvent = async (id: string) => {
-    const url = `/api/events/delete/${id}`;
-    const res = await fetch(url, {
-        method: "DELETE",
-        headers: backend_headers,
-    });
-    
-   await handleHttpError(res);
-    
-    return await res.json().catch((e) => {
-        console.error(e.message);
-        return {};
-    });
-    };
+  const url = `/events/delete/${id}`; // Adjusted the URL
+
+  try {
+    const response = await api.delete(url);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+    return {}; // Return an empty object in case of error
+  }
+};

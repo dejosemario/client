@@ -1,69 +1,51 @@
+import { api } from "./index"// Adjust the path accordingly
 
-import { backend_headers } from "./usersService";
-import { handleHttpError } from "./usersService";
+import { handleHttpError } from "./usersService"; // Adjust the path accordingly
 
+// Create a new booking
 export const createBooking = async (data: any) => {
-    const url = "/api/bookings/create-booking";
-    const res = await fetch(url, {
-        method: "POST",
-        headers: backend_headers,
-        body: JSON.stringify(data),
-    });
-    await handleHttpError(res);
+  const url = '/bookings/create-booking'; // Adjusted the URL
 
-    return res.json().catch((e) => {
-        console.error(e.message);
-        return {};
-    });
-  
+  try {
+    const response = await api.post(url, data);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+  }
 };
 
+// Cancel an existing booking
 export const cancelBooking = async (data: any) => {
-    const url = "/api/bookings/cancel-booking";
-    const res = await fetch(url, {
-        method: "POST",
-        headers: backend_headers,
-        body: JSON.stringify(data),
-    });
-    await handleHttpError(res);
+  const url = '/bookings/cancel-booking'; // Adjusted the URL
 
-    return res.json().catch((e) => {
-        console.error(e.message);
-        return {};
-    });
-}
+  try {
+    const response = await api.post(url, data);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+  }
+};
 
+// Get bookings for the current user
 export const getUserBookings = async () => {
-    const url = "/api/bookings/get-user-bookings";
-    const res = await fetch(url, {
-        method: "GET",
-        headers: backend_headers,
-    });
-    // await handleHttpError(res);
-    if(!res.ok){
-        const errorResponse = await res.json();
-        console.error(
-          `Error: ${res.status} ${res.statusText}. Response body: ${errorResponse}`
-        );
-        throw new Error(`${errorResponse.message}`);
-      }
+  const url = '/bookings/get-user-bookings'; // Adjusted the URL
 
-    return res.json().catch((e) => {
-        console.error(e.message, "I am the erorrorrror");
-        return {};
-    });
-}
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+  }
+};
 
+// Get all bookings
 export const getAllBookings = async () => {
-    const url = "/api/bookings/get-all-bookings";
-    const res = await fetch(url, {
-        method: "GET",
-        headers: backend_headers,
-    });
-    await handleHttpError(res);
+  const url = '/bookings/get-all-bookings'; // Adjusted the URL
 
-    return res.json().catch((e) => {
-        console.error(e.message);
-        return {};
-    });
-}
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+  }
+};

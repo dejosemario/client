@@ -1,5 +1,5 @@
-import PageTitle from "./PageTitle";
-import EventForm from "../organisms/EventForm";
+import PageTitle from "../molecules/PageTitle";
+import EventForm from "../molecules/EventForm";
 
 export default function EventCreate() {
   

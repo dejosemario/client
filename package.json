@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^2.8.0",
     "antd": "^5.19.4",
+    "axios": "^1.7.4",
     "dayjs": "^1.11.12",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.5",
@@ -25,6 +25,8 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@stripe/react-stripe-js": "^2.8.0",
+    "@types/axios": "^0.14.0",
     "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

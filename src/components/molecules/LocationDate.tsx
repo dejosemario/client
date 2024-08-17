@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import { EventFormStepProps } from "../organisms/EventForm";
+import { EventFormStepProps } from "./EventForm";
 import 'antd/dist/reset.css'; 
 
 

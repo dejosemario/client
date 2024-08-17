@@ -1,4 +1,4 @@
-import { EventFormStepProps } from "../organisms/EventForm";
+import { EventFormStepProps } from "./EventForm";
 import { Button, Form, Input, Tag } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
