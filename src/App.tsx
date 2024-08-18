@@ -10,6 +10,7 @@ import EditEventPage from "./components/organisms/EditEventPage";
 import EventCreate from  "./components/organisms/EventCreate";
 import EventInfoPage from "./components/organisms/EventInfoPage";
 import UserBookingsPage from "./components/organisms/UserBookingsPage";
+import ProfilePage from "./pages/profile";
 function App() {
   return (
     <ThemeProvider>
@@ -71,7 +72,15 @@ function App() {
                 <EventInfoPage />
               </PrivateLayout>
             }
-          />      
+          />   
+             <Route
+            path="/profile"
+            element={
+              <PrivateLayout>
+                <ProfilePage />
+              </PrivateLayout>
+            }
+          />   
           <Route
             path="/profile/bookings"
             element={

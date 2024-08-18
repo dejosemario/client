@@ -62,6 +62,12 @@ function MenuItems() {
       isActive: currentPath === "/",
     },
     {
+      name: "Profile",
+      path: "/profile",
+      icon: <User size={iconSize} />,
+      isActive: currentPath === "/profile",
+    },
+    {
       name: "Events",
       path: "/creator/events",
       icon: <List size={iconSize} />,

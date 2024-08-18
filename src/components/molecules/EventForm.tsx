@@ -46,7 +46,6 @@ export default function EventForm({
         await updateEvent(params.id, eventData);
         message.success("Event updated successfully");
       } else {
-        console.log(eventData, "let's create an event");
         const response = await createEvent(eventData);
         if (response.success) {
           message.success("Event created successfully");

@@ -1,4 +1,4 @@
-import PageTitle from "../molecules/PageTitle";
+import PageTitle from "../atoms/pageTitle";
 import EventForm from "../molecules/EventForm";
 
 export default function EventCreate() {
