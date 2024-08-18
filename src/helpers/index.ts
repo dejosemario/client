@@ -21,3 +21,17 @@ export const getDateTimeFormat = (date: string, time: string | null = null) => {
 export const getTimeFormat = (time: string) => {
     return dayjs(time).format("hh:mm A");
 }
+
+
+export const formatUserName = (name: string): string => {
+    // Split the name by spaces to handle multiple parts
+    const nameParts = name.trim().split(/\s+/);
+  
+    // Capitalize the first letter of each part
+    const capitalizedParts = nameParts.map(part => 
+      part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+    );
+  
+    // Join the parts back together
+    return capitalizedParts.join(' ');
+  };

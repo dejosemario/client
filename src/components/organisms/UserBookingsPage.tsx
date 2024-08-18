@@ -16,9 +16,13 @@ function UserBookingsPage() {
     try {
       setLoading(true);
       const response = await getUserBookings();
-      console.log(response.data, "I am the bookings");
-      setBookings(response.data);
-      
+      // Access the 'bookings' key to get the array
+      if (Array.isArray(response.bookings)) {
+        setBookings(response.bookings);
+      } else {
+        console.error("Response does not contain bookings array:", response);
+      }
+  
     } catch (error: any) {
       message.error(error.message);
     } finally {
@@ -31,7 +35,7 @@ function UserBookingsPage() {
   }, []);
 
 
-  const onCanceBooking = async (booking: BookingType) => {
+  const onCancelBooking = async (booking: BookingType) => {
     try {
       setLoading(true);
       const payload = {
@@ -55,15 +59,14 @@ function UserBookingsPage() {
   const columns = [
     {
       title: "Event Name",
-      dataIndex: "event",
-      key: "event",
-      render: (event: any) => event.name,
+      dataIndex: ["event", "name"], // Accesses nested 'name' property within 'event'
+      key: "eventName",
     },
     {
       title: "Event Date & Time",
-      dataIndex: "event",
-      key: "event",
-      render: (event: any) => getDateTimeFormat(`${event.date} ${event.time}`),
+      dataIndex: ["event", "date"], // Accesses 'date' property within 'event'
+      key: "eventDateTime",
+      render: (date: string, record: BookingType) => getDateTimeFormat(`${date} ${record.event.time}`),
     },
     {
       title: "Ticket Type",
@@ -100,7 +103,7 @@ function UserBookingsPage() {
           return (
             <Popconfirm
               title="Are you sure you want to cancel this booking?"
-              onConfirm={() => onCanceBooking(record)}
+              onConfirm={() => onCancelBooking(record)}
               okText="Yes"
               cancelText="No"
               placement='leftBottom'
@@ -111,10 +114,75 @@ function UserBookingsPage() {
             </Popconfirm>
           );
         }
-        return "";
+        return null;
       },
     },
   ];
+  
+
+  // const columns = [
+  //   {
+  //     title: "Event Name",
+  //     dataIndex: "event",
+  //     key: "event",
+  //     render: (event: any) => event.name,
+  //   },
+  //   {
+  //     title: "Event Date & Time",
+  //     dataIndex: "event",
+  //     key: "event",
+  //     render: (event: any) => getDateTimeFormat(`${event.date} ${event.time}`),
+  //   },
+  //   {
+  //     title: "Ticket Type",
+  //     dataIndex: "ticketType",
+  //     key: "ticketType",
+  //   },
+  //   {
+  //     title: "Ticket Count",
+  //     dataIndex: "ticketsCount",
+  //     key: "ticketsCount",
+  //   },
+  //   {
+  //     title: "Total Amount",
+  //     dataIndex: "totalAmount",
+  //     key: "totalAmount",
+  //   },
+  //   {
+  //     title: "Status",
+  //     dataIndex: "status",
+  //     key: "status",
+  //     render: (status: string) => status.toUpperCase(),
+  //   },
+  //   {
+  //     title: "Booked On",
+  //     dataIndex: "createdAt",
+  //     key: "createdAt",
+  //     render: (createdAt: string) => getDateTimeFormat(createdAt),
+  //   },
+  //   {
+  //     title: "Action",
+  //     key: "action",
+  //     render: (record: BookingType) => {
+  //       if (record.status === "booked") {
+  //         return (
+  //           <Popconfirm
+  //             title="Are you sure you want to cancel this booking?"
+  //             onConfirm={() => onCancelBooking(record)}
+  //             okText="Yes"
+  //             cancelText="No"
+  //             placement='leftBottom'
+  //           >
+  //             <span className="text-gray-600 cursor-pointer text-sm underline">
+  //               Cancel
+  //             </span>
+  //           </Popconfirm>
+  //         );
+  //       }
+  //       return "";
+  //     },
+  //   },
+  // ];
 
   return (
     <div>

@@ -57,7 +57,7 @@ export const login = async (email: string, password: string) => {
 
 // Get current user
 export const getCurrentUser = async () => {
-    const url = 'user/me';
+    const url = '/user/me';
   
   try {
     const response = await api.get(url);
@@ -65,4 +65,8 @@ export const getCurrentUser = async () => {
   } catch (error: any) {
     handleHttpError(error);
   }
+
+
 };
+
+

@@ -53,7 +53,7 @@ function PaymentModal({
       } else {
         message.success("Payment successful");
         const bookingPayload = {
-          event: event._id,
+          event: event?._id,
           ticketType: selectedTicketType,
           ticketsCount: selectedTicketsCount,
           totalAmount,
@@ -62,7 +62,6 @@ function PaymentModal({
         };
         await createBooking(bookingPayload);
         message.success("Booking successful");
-        
         navigate("/profile/bookings");
         setShowPaymentModal(false);
       }
@@ -80,7 +79,7 @@ function PaymentModal({
       centered
       footer={null}
     >
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <PaymentElement />
         <AddressElement
           options={{

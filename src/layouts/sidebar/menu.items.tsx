@@ -11,6 +11,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { message } from "antd";
 import usersGlobalStore, { UsersStoreType } from "../../store/users.store";
+import { formatUserName } from "../../helpers";
 
 function MenuItems() {
   const iconSize = 16;
@@ -18,7 +19,7 @@ function MenuItems() {
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-  const { currentUser, setCurrentUser }: UsersStoreType =
+  const { setCurrentUser }: UsersStoreType =
     usersGlobalStore() as UsersStoreType;
 
   const userMenu = [
@@ -68,9 +69,9 @@ function MenuItems() {
     },
     {
       name: "Bookings",
-      path: "/creator/bookings",
+      path: "/profile/bookings",
       icon: <BookCheck size={iconSize} />,
-      isActive: currentPath.includes("/creator/bookings"),
+      isActive: currentPath.includes("/profile/bookings"),
     },
     {
       name: "Attendees",
@@ -91,8 +92,10 @@ function MenuItems() {
     },
   ];
 
-  const menuToRender = currentUser?.role === "eventee" ? userMenu : creatorMenu;
-  const userName = JSON.parse(localStorage.getItem("user") || "{}").name;
+  const name = JSON.parse(localStorage.getItem("user") || "{}").name;
+  const userName = formatUserName(name);
+  const userRole = JSON.parse(localStorage.getItem("user") || "{}").role;
+  const menuToRender = userRole === "eventee" ? userMenu : creatorMenu;
 
   const onLogout = () => {
     setCurrentUser(null);

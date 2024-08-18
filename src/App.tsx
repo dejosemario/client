@@ -5,13 +5,11 @@ import RegisterPage from "./pages/auth/register";
 import HomePage from "./pages/private/home";
 import PublicLayout from "./layouts/public.layout";
 import PrivateLayout from "./layouts/private.layout";
-// import CreateEvent from "./pages/creator/event/create/index";
 import EventsPage from "./pages/event";
 import EditEventPage from "./components/organisms/EditEventPage";
 import EventCreate from  "./components/organisms/EventCreate";
 import EventInfoPage from "./components/organisms/EventInfoPage";
 import UserBookingsPage from "./components/organisms/UserBookingsPage";
-import CreatorBookingsPage from "./components/organisms/CreatorBookingsPage";
 function App() {
   return (
     <ThemeProvider>
@@ -73,15 +71,7 @@ function App() {
                 <EventInfoPage />
               </PrivateLayout>
             }
-          />
-          <Route
-            path="/creator/bookings"
-            element={
-              <PrivateLayout>
-                <CreatorBookingsPage />
-              </PrivateLayout>
-            }
-          />
+          />      
           <Route
             path="/profile/bookings"
             element={
