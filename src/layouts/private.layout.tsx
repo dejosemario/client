@@ -41,7 +41,7 @@ const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
     };
     getUserData();
     checkAuth();
-  }, [navigate, setCurrentUser]);
+  }, [navigate, setCurrentUser, setAuthenticated]);
 
   if (loading) {
     return (
