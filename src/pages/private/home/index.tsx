@@ -1,4 +1,3 @@
-import usersGlobalStore, { UsersStoreType } from "../../../store/users.store";
 import { useState, useEffect } from "react";
 import { message } from "antd";
 import Spinner from "../../../components/atoms/spinner";
@@ -15,7 +14,8 @@ export default function HomePage() {
   });
 
   const [loading, setLoading] = useState(false);
-  const {currentUser } = usersGlobalStore() as UsersStoreType;
+
+const userName = JSON.parse(localStorage.getItem("user") || "{}").name;
   
   const getData = async (filtersObj: any) => {
     try {
@@ -44,7 +44,7 @@ export default function HomePage() {
   return (
     <div>
       <p className="text-gray-600 text-xl font-bold">
-        Welcome, {currentUser?.name}!!!
+        Welcome, {userName}!
       </p>
 
       <Filters filters={filters} setFilters={setFilters} onFilter={getData} />
