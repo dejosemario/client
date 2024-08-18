@@ -10,7 +10,7 @@ const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
-  const { setCurrentUser }: UsersStoreType =
+  const { setCurrentUser, currentUser }: UsersStoreType =
   usersGlobalStore() as UsersStoreType;
 
   // Check if the user is authenticated by localStorage
@@ -34,6 +34,7 @@ const PrivateLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
     const checkAuth = () => {
       if (isAuthenticated()) {
         setAuthenticated(true);
+        console.log(currentUser)
       } else {
         navigate("/login");
       }
