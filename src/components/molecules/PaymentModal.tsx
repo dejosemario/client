@@ -81,12 +81,12 @@ function PaymentModal({
     >
       <form onSubmit={handleSubmit}>
         <PaymentElement />
-        <AddressElement
-          options={{
-            mode: "shipping",
-            allowedCountries: ["US"],
-          }}
-        />
+          <AddressElement
+            options={{
+              mode: "shipping",
+              allowedCountries: ["US"],
+            }}
+          />
 
         <div className="mt-7 flex justify-end gap-6">
           <Button disabled={loading} onClick={() => setShowPaymentModal(false)}>

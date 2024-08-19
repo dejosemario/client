@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { message } from "antd";
 import usersGlobalStore, { UsersStoreType } from "../../store/users.store";
 import { formatUserName } from "../../helpers";
+import { logout } from "../../api/usersService";
 
 function MenuItems() {
   const iconSize = 16;
@@ -51,7 +52,7 @@ function MenuItems() {
       name: "Logout",
       path: "/logout",
       icon: <LogOut size={iconSize} />,
-    },
+    },    
   ];
 
   const creatorMenu = [
@@ -101,9 +102,11 @@ function MenuItems() {
   const name = JSON.parse(localStorage.getItem("user") || "{}").name;
   const userName = formatUserName(name);
   const userRole = JSON.parse(localStorage.getItem("user") || "{}").role;
+  
   const menuToRender = userRole === "eventee" ? userMenu : creatorMenu;
 
-  const onLogout = () => {
+  const onLogout = async () => {
+    await logout();
     setCurrentUser(null);
     localStorage.removeItem("user");
     navigate("/login");

@@ -89,7 +89,7 @@ export default function General({
           type="primary"
           onClick={() => setCurrentStep(currentStep + 1)}
           disabled={
-            !eventData.name || !eventData.description || !eventData.organizer
+            !eventData.name || !eventData.description || !eventData.organizer || !eventData.guests?.length
           }
         >
           Next
