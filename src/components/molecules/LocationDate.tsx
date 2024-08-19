@@ -11,7 +11,8 @@ function LocationAndDate({
 }: EventFormStepProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-      <Form.Item label="Address">
+      <Form layout="vertical">
+      <Form.Item label="Address" >
         <Input
           placeholder="Address"
           value={eventData.address}
@@ -59,6 +60,7 @@ function LocationAndDate({
           onChange={(e) => setEventData({ ...eventData, time: e.target.value })}
         />
       </Form.Item>
+      </Form>
 
       <div className="flex justify-between col-span-3">
         <Button onClick={() => setCurrentStep(currentStep - 1)}>Back</Button>
