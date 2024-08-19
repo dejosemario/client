@@ -34,7 +34,7 @@ function EventCard({ event }: { event: EventType }) {
             <div className="flex gap-2 items-center">
               <Timer size={16} />
               <p className="text-xs">
-                {getDateTimeFormat(`${event.date} ${event.time}`)}
+              {getDateTimeFormat(event.date, event.time)}
               </p>
             </div>
           </div>

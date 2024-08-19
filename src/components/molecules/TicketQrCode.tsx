@@ -40,6 +40,23 @@ function Tickets({
     setEventData({ ...eventData, ticketTypes: newTicketTypes });
   };
 
+  
+  // const isSaveAndFinishDisabled = () => {
+  //   return eventData.ticketTypes?.some(
+  //     (ticketType: any) =>
+  //       !ticketType.name || ticketType.price <= 0 || ticketType.limit <= 0
+  //   );
+  // };
+  const isSaveAndFinishDisabled = () => {
+    console.log("Current ticket types:", eventData.ticketTypes);
+    const isDisabled = eventData.ticketTypes?.some(
+      (ticketType: any) =>
+        !ticketType.name || ticketType.price <= 0 || ticketType.limit <= 0
+    );
+    console.log("Is Save and Finish Disabled:", isDisabled);
+    return isDisabled;
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <Button onClick={() => onAddTicketType()} className="w-max">
@@ -116,7 +133,7 @@ function Tickets({
           type="primary"
           onClick={onFinish}
           loading={loading}
-          disabled={loading}
+         disabled= {isSaveAndFinishDisabled() || loading}
         >
           Save and Finish
         </Button>

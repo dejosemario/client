@@ -40,7 +40,7 @@ export default function EventForm({
   const onFinish = async () => {
     try {
       setLoading(true);
-  
+
       // Upload media files and get their URLs
       const [...urls] = await Promise.all(
         selectedMediaFiles.map(async (file: any) => {
@@ -48,45 +48,41 @@ export default function EventForm({
         })
       );
       eventData.media = [...(eventData?.media || []), ...urls];
-  
+
       let success: boolean | Promise<boolean> = false;
-  
+
       if (type === "edit") {
-        // Update existing event
         await updateEvent(params.id, eventData);
         message.success("Event updated successfully");
         success = true;
       } else if (type === "create") {
-        // Create a new event
-        const { success: createSuccess, message: createMessage } = await createEvent(eventData);
+        const { success: createSuccess, message: createMessage } =
+          await createEvent(eventData);
         if (createSuccess) {
           message.success("Event created successfully");
-          // Use the data as needed
           success = true;
         } else {
-          message.error(createMessage); // Display the error message
+          message.error(createMessage);
         }
       } else if (type === "roleChange") {
-        // Handle role change and create event
-        const roleChangeSuccess = await handleSubmit(); // Handle role change
+        const roleChangeSuccess = await handleSubmit();
         if (roleChangeSuccess) {
-          // If role change is successful, create the event
-          const { success: createSuccess, message: createMessage, data } = await createEvent(eventData);
+          const {
+            success: createSuccess,
+            message: createMessage,
+          } = await createEvent(eventData);
           if (createSuccess) {
             message.success("Event created successfully");
-            // Use the data as needed
-            console.log("Created event data:", data);
             success = true;
           } else {
-            message.error(createMessage); // Display the error message
+            message.error(createMessage);
             success = false;
           }
         } else {
-          // Role change failed
           success = false;
         }
       }
-  
+
       // Navigate to events page if the operation was successful
       if (success) {
         navigate("/creator/events");
@@ -97,7 +93,6 @@ export default function EventForm({
       setLoading(false);
     }
   };
-  
 
   const commonProps = {
     eventData,
@@ -146,4 +141,4 @@ export default function EventForm({
       <div className="mt-5">{stepsData[currentStep].component}</div>
     </Form>
   );
-} 
+}

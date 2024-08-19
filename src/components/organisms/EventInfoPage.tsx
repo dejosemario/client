@@ -66,7 +66,7 @@ export default function EventsInfoPage() {
             <div className="flex gap-1 text-gray-500 items-center">
               <Timer size={16} />
               <span className="text-gray-500 text-xs">
-                {getDateTimeFormat(`${eventData?.date} ${eventData?.time}`)}
+                {getDateTimeFormat(eventData?.date, eventData?.time)}
               </span>
             </div>
           </div>
