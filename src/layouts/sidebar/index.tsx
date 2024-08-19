@@ -11,10 +11,10 @@ function Sidebar() {
         <MenuItems />
       </div>
 
-      <div className="bg-info p-5 lg:hidden flex">
+      <div className="bg-info p-4 lg:hidden flex">
         <Menu
           size={20}
-          color="green"
+          color="white"
           onClick={() => setShowMobileMenu(!showMobileMenu)}
           className="cursor-pointer"
         />
@@ -24,6 +24,7 @@ function Sidebar() {
         <Drawer 
           open={showMobileMenu}
           placement="left"
+          onClick={() => setShowMobileMenu(false)}
           onClose={() => setShowMobileMenu(false)}
         >
           <MenuItems />
