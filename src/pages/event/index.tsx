@@ -51,7 +51,7 @@ function EventsPage() {
       title: "Date & Time",
       dataIndex: "date",
       render: (date: any,  row: any) => {
-        return getDateTimeFormat(`${date} ${row.time}`);
+        return getDateTimeFormat(date, row.time);
       },
       key: "date",
     },

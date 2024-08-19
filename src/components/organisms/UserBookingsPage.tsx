@@ -66,7 +66,7 @@ function UserBookingsPage() {
       title: "Event Date & Time",
       dataIndex: ["event", "date"], // Accesses 'date' property within 'event'
       key: "eventDateTime",
-      render: (date: string, record: BookingType) => getDateTimeFormat(`${date} ${record.event.time}`),
+      render: (date: string, record: BookingType) => getDateTimeFormat(date, record.event.time),
     },
     {
       title: "Ticket Type",

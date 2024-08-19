@@ -5,7 +5,7 @@ export const getDateFormat = (date: string) => {
   return dayjs(date).format("DD MMM YYYY");
 };
 
-export const getDateTimeFormat = (date: string, time: string) => {
+export const getDateTimeFormat = (date: string, time?: string) => {
   // Parse the date part first
   const parsedDate = dayjs(date);
 
