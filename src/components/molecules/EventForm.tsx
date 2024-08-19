@@ -37,35 +37,6 @@ export default function EventForm({
   const navigate = useNavigate();
   const params: any = useParams();
 
-  // const onFinish = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const [...urls] = await Promise.all(
-  //       selectedMediaFiles.map(async (file: any) => {
-  //         return await uploadFileAndReturnUrl(file);
-  //       })
-  //     );
-  //     eventData.media = [...(eventData?.media || []), ...urls];
-  //     if (type === "edit") {
-  //       await updateEvent(params.id, eventData);
-  //       message.success("Event updated successfully");
-  //     } else {
-  //       const response = await createEvent(eventData);
-  //       if (response.success) {
-  //         message.success("Event created successfully");
-  //       } else {
-  //         message.error(response.message);
-  //       }
-  //     }
-
-  //     navigate("/creator/events");
-  //   } catch (error: any) {
-  //     message.error(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const onFinish = async () => {
     try {
       setLoading(true);
@@ -87,7 +58,7 @@ export default function EventForm({
         success = true;
       } else if (type === "create") {
         // Create a new event
-        const { success: createSuccess, message: createMessage, data } = await createEvent(eventData);
+        const { success: createSuccess, message: createMessage } = await createEvent(eventData);
         if (createSuccess) {
           message.success("Event created successfully");
           // Use the data as needed
