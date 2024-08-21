@@ -105,7 +105,7 @@ function MenuItems() {
   
   const menuToRender = userRole === "eventee" ? userMenu : creatorMenu;
 
-  const onLogout = async () => {
+   const onLogout = async () => {
     await logout();
     setCurrentUser(null);
     localStorage.removeItem("user");
