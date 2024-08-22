@@ -41,7 +41,6 @@ export default function HomePage() {
   const handleSubmit = async (): Promise<boolean>  => {
     try {
       const response = await updateUserRole({ role: "creator" });
-      console.log(response, " I am the responseeeee");
       setShowCreateEventModal(false);
       if (response) {
         message.success("Role updated successfully");

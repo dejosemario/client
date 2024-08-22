@@ -1,23 +1,22 @@
 import axios from "axios";
-import { logout } from "./usersService";
 
-let inactivityTimeout: NodeJS.Timeout | undefined;
+// let inactivityTimeout: NodeJS.Timeout | undefined;
 
-const startInactivityTimer = () => {
-  clearTimeout(inactivityTimeout);
-  inactivityTimeout = setTimeout(() => {
-    logout();    
-  }, 60000);
-};
+// const startInactivityTimer = () => {
+//   clearTimeout(inactivityTimeout);
+//   inactivityTimeout = setTimeout(() => {
+//     logout();    
+//   }, 60000);
+// };
 
-export const resetInactivityTimer = (): void => {
-  startInactivityTimer();
-};
+// export const resetInactivityTimer = (): void => {
+//   startInactivityTimer();
+// };
 
-// Event listeners to track user activity
-window.addEventListener("mousemove", resetInactivityTimer);
-window.addEventListener("keypress", resetInactivityTimer);
-window.addEventListener("click", resetInactivityTimer);
+// // Event listeners to track user activity
+// window.addEventListener("mousemove", resetInactivityTimer);
+// window.addEventListener("keypress", resetInactivityTimer);
+// window.addEventListener("click", resetInactivityTimer);
 
 // Create an axios instance
 const api = axios.create({
@@ -41,8 +40,6 @@ api.interceptors.request.use(
           { withCredentials: true }
         );
 
-        // Reset inactivity timer on successful token refresh
-        resetInactivityTimer();
 
         // Retry the original request with the new token
         return api(originalRequest);
