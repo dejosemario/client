@@ -10,8 +10,8 @@ function LocationAndDate({
   currentStep,
 }: EventFormStepProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-      <Form layout="vertical">
+    <div className=" gap-5">
+      <Form layout="vertical" className="w-full">
       <Form.Item label="Address" >
         <Input
           placeholder="Address"
@@ -62,7 +62,7 @@ function LocationAndDate({
       </Form.Item>
       </Form>
 
-      <div className="flex justify-between col-span-3">
+      <div className="flex justify-between col-span-3 mt-20">
         <Button onClick={() => setCurrentStep(currentStep - 1)}>Back</Button>
         <Button
           type="primary"

@@ -15,7 +15,6 @@ function EventsPage() {
     try {
       setLoading(true);
       const response = await getEventsByCreator();
-      console.log(response.data);
       setEvents(response.data);
     } catch (error) {
       message.error("Failed to fetch events");

@@ -5,18 +5,18 @@ export const getDateFormat = (date: string) => {
   return dayjs(date).format("DD MMM YYYY");
 };
 
-export const getDateTimeFormat = (date: string, time?: string) => {
-  // Parse the date part first
-  const parsedDate = dayjs(date);
 
+export const getDateTimeFormat = (date: string, time?: string) => {
+  const parsedDate = dayjs(date);
   // If the time is provided, set the hour and minute
   if (time) {
     const [hours, minutes] = time.split(":").map(Number);
-    parsedDate.hour(hours).minute(minutes);
+    const updatedDate = parsedDate.set('hour', hours).set('minute', minutes);
+    return updatedDate.format("DD MMM YYYY hh:mm A");
   }
 
   return parsedDate.format("DD MMM YYYY hh:mm A");
-};
+};  
 
 export const formatUserName = (name: string): string => {
   // Split the name by spaces to handle multiple parts

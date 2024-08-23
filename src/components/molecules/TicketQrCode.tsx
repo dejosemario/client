@@ -48,12 +48,10 @@ function Tickets({
   //   );
   // };
   const isSaveAndFinishDisabled = () => {
-    console.log("Current ticket types:", eventData.ticketTypes);
     const isDisabled = eventData.ticketTypes?.some(
       (ticketType: any) =>
         !ticketType.name || ticketType.price <= 0 || ticketType.limit <= 0
     );
-    console.log("Is Save and Finish Disabled:", isDisabled);
     return isDisabled;
   };
 

@@ -44,7 +44,6 @@ api.interceptors.request.use(
         // Retry the original request with the new token
         return api(originalRequest);
       } catch (refreshError) {
-        console.log("Unable to refresh token:", refreshError);
         return Promise.reject(refreshError);
       }
     }
