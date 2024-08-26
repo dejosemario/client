@@ -13,6 +13,7 @@ import UserBookingsPage from "./components/organisms/UserBookingsPage";
 import ProfilePage from "./pages/profile";
 import Attendees from "./pages/attendees";
 import Analytics from "./pages/analytics";
+import UserReports from "./pages/userReports";
 function App() {
   return (
     <ThemeProvider>
@@ -91,6 +92,15 @@ function App() {
               </PrivateLayout>
             }
           />
+            <Route
+            path="/profile/reports"
+            element={
+              <PrivateLayout>
+                <UserReports />
+              </PrivateLayout>
+            }
+          />
+          
           <Route 
            path="/creator/attendees"
            element = {

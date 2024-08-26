@@ -1,9 +1,9 @@
 import { api } from "./index";
 import { handleHttpError } from './usersService';
 
-export const getAdminReports = async (payload: any) => {
-  const url = '/payment/create-client-secret'; // Adjusted the URL
-  try {
+export const getCreatorReports = async (payload: any) => {
+  const url =  '/reports/get-creator-reports';
+  try{
     const response = await api.post(url, payload);
     return response.data;
   } catch (error: any) {
@@ -11,3 +11,15 @@ export const getAdminReports = async (payload: any) => {
     return {}; 
   }
 };
+
+
+export const getUserReports = async () => {
+    const url = '/reports/get-user-reports'; 
+    try {
+      const response = await api.post(url);
+      return response.data;
+    } catch (error: any) {
+      handleHttpError(error);
+      return {}; 
+    }
+  };

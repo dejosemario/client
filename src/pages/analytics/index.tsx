@@ -3,7 +3,7 @@ import PageTitle from "../../components/atoms/pageTitle"
 import ReportFilters from "../../components/molecules/ReportFilters";
 import { Table, message } from "antd";
 import { getEvents } from "../../api/eventService";
-import { getAdminReports } from "../../api/reportService";
+import { getCreatorReports } from "../../api/reportService";
 import ReportCard from "../../components/molecules/ReportCard";
 
 function Analytics() {
@@ -17,7 +17,7 @@ function Analytics() {
 
   const getReports = async () => {
     try {
-      const response = await getAdminReports(filters);
+      const response = await getCreatorReports(filters);
       setReports(response.data);
     } catch (error: any) {
       message.error(error.message);
