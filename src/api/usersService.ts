@@ -80,6 +80,16 @@ export const logout = async () => {
   }
 };
 
+export const getAllAttendees = async () => {
+  const url = "/user/attendees";
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error: any) {
+    handleHttpError(error);
+  }
+};
+
 export const updateUserRole = async (role: { role: string }) => {
   const url = "user/update-role";
 

@@ -87,10 +87,10 @@ function MenuItems() {
       isActive: currentPath.includes("/creator/attendees"),
     },
     {
-      name: "Reports",
-      path: "/creator/reports",
+      name: "Analytics",
+      path: "/creator/analytics",
       icon: <CandlestickChart size={iconSize} />,
-      isActive: currentPath.includes("/creator/reports"),
+      isActive: currentPath.includes("/creator/analytics"),
     },
     {
       name: "Logout",

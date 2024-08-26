@@ -11,6 +11,8 @@ import EventCreate from  "./components/organisms/EventCreate";
 import EventInfoPage from "./components/organisms/EventInfoPage";
 import UserBookingsPage from "./components/organisms/UserBookingsPage";
 import ProfilePage from "./pages/profile";
+import Attendees from "./pages/attendees";
+import Analytics from "./pages/analytics";
 function App() {
   return (
     <ThemeProvider>
@@ -88,6 +90,22 @@ function App() {
                 <UserBookingsPage />
               </PrivateLayout>
             }
+          />
+          <Route 
+           path="/creator/attendees"
+           element = {
+            <PrivateLayout>
+              <Attendees />
+            </PrivateLayout>
+           }
+          />
+          <Route 
+           path="/creator/analytics"
+           element = {
+            <PrivateLayout>
+              <Analytics />
+            </PrivateLayout>
+           }
           />
         </Routes>
       </BrowserRouter>
