@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserType } from "../../types";
 import { Table, message } from "antd";
-
+import { getAllAttendees } from "../../api/usersService";
 import { getDateTimeFormat } from "../../helpers";
 import PageTitle from "../../components/atoms/pageTitle";
 
