@@ -31,7 +31,7 @@ function ReportFilters({
           value={filters.eventId}
           onChange={(value) => setFilters({ ...filters, eventId: value })}
         >
-          <Select.Option value="">All</Select.Option>
+          <Select.Option value="">All Events</Select.Option>
           {events.map((event: any) => (
             <Select.Option key={event._id} value={event.id}>
               {event.name}
