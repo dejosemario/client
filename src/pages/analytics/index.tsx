@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PageTitle from "../../components/atoms/pageTitle"
 import ReportFilters from "../../components/molecules/ReportFilters";
 import { Table, message } from "antd";
-import { getEvents } from "../../api/eventService";
+import {  getEventsByCreator } from "../../api/eventService";
 import { getCreatorReports } from "../../api/reportService";
 import ReportCard from "../../components/molecules/ReportCard";
 
@@ -26,7 +26,7 @@ function Analytics() {
 
   const getEventsData = async () => {
     try {
-      const response = await getEvents({ searchText: "", date: "" });
+      const response = await getEventsByCreator();
       setEvents(response.data);
     } catch (error: any) {
       message.error(error.message);

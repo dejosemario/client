@@ -52,9 +52,14 @@ export default function EventForm({
       let success: boolean | Promise<boolean> = false;
 
       if (type === "edit") {
-        await updateEvent(params.id, eventData);
-        message.success("Event updated successfully");
-        success = true;
+        const response = await updateEvent(params.id, eventData);
+        if (response) {
+          message.success("Event updated successfully");
+          success = true;
+        } else {
+          message.error("Failed to update event");
+          success = false;
+        }
       } else if (type === "create") {
         const { success: createSuccess, message: createMessage } =
           await createEvent(eventData);
@@ -67,10 +72,8 @@ export default function EventForm({
       } else if (type === "roleChange") {
         const roleChangeSuccess = await handleSubmit();
         if (roleChangeSuccess) {
-          const {
-            success: createSuccess,
-            message: createMessage,
-          } = await createEvent(eventData);
+          const { success: createSuccess, message: createMessage } =
+            await createEvent(eventData);
           if (createSuccess) {
             message.success("Event created successfully");
             success = true;
