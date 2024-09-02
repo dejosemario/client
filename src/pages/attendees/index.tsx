@@ -47,27 +47,11 @@ function Attendees() {
       key: "createdAt",
       render: (createdAt: string) => getDateTimeFormat(createdAt),
     },
-
-    //     {
-    //       title: "Status",
-    //       dataIndex: "isActive",
-    //       key: "isActive",
-    //       render: (isActive: boolean, row: UserType) => {
-    //         return (
-    //           <select
-    //             value={isActive ? "active" : "blocked"}
-    //             className="border border-solid border-gray-600"
-    //             onChange={(e) => {
-    //               const isActiveUpdated = e.target.value === "active";
-    //               updateUser({ userId: row._id, isActive: isActiveUpdated });
-    //             }}
-    //           >
-    //             <option value="active">Active</option>
-    //             <option value="blocked">Blocked</option>
-    //           </select>
-    //         );
-    //       },
-    //     },
+    {
+      title: "Event Name",
+      dataIndex: "eventName",
+      key: "eventName",
+    },
   ];
 
   return (
