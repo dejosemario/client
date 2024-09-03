@@ -30,7 +30,7 @@ function ReportFilters({
         <Select
           value={filters.eventId}
           onChange={(value) => setFilters({ ...filters, eventId: value })}
-          className="h-[3rem]"
+          className="h-[2.9375rem]"
         >
           <Select.Option value="">All Events</Select.Option>
           {events.map((event: any) => (
